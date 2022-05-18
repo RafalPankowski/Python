@@ -18,7 +18,8 @@ sky_surface.fill('Blue')
 ground_surface = pygame.Surface((800,100))
 ground_surface.fill('Green')
 
-text_surface = test_font.render('My game', False, 'Brown')
+score_surf = test_font.render('Score:', False, 'Brown')
+score_rect = score_surf.get_rect(center = (400, 70))
 
 snail_surface = pygame.image.load('grafika\\snail.png').convert_alpha()
 snail_rect = snail_surface.get_rect(bottomright = (700,300))
@@ -36,14 +37,20 @@ while True:
     screen.blit(background_surface,(0,0))
     screen.blit(sky_surface,(0,0)) # x , y
     screen.blit(ground_surface,(0,300))
-    screen.blit(text_surface,(300,50))
+    pygame.draw.rect(screen, 'Pink', score_rect)
+    pygame.draw.rect(screen, 'Pink', score_rect, 10)
+    screen.blit(score_surf,score_rect)
 
     snail_rect.x -= 4
     if snail_rect.right <= 0: snail_rect.left = 800
     screen.blit(snail_surface,snail_rect) 
     screen.blit(player_surf,player_rect)
 
-    #if player_rect.colliderect(snail_rect): YT: 1:10:34
+
+
+    mouse_pos = pygame.mouse.get_pos()
+    if player_rect.collidepoint(mouse_pos):
+        print('collision')
         
 
     pygame.display.update()

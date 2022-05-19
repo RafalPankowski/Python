@@ -8,6 +8,7 @@ screen = pygame.display.set_mode((800,400)) # w ,h
 pygame.display.set_caption('Runner')
 clock = pygame.time.Clock()
 test_font = pygame.font.Font(None, 50) # type font, size
+game_active = True
 
 background_surface = pygame.Surface((800,800))
 background_surface.fill('Black')
@@ -43,34 +44,41 @@ while True:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     player_gravity = -20
-        
-    #Kolejnosc deklarowania elementow jest bardzo wazna i trzeba byc precyzyjnym
-    screen.blit(background_surface,(0,0))
-    screen.blit(sky_surface,(0,0)) # x , y
-    screen.blit(ground_surface,(0,300))
-    pygame.draw.rect(screen, 'Pink', score_rect)
-    pygame.draw.rect(screen, 'Pink', score_rect, 10)
-    screen.blit(score_surf,score_rect)
-
-    snail_rect.x -= 6
-    if snail_rect.right <= 0: snail_rect.left = 800
-    screen.blit(snail_surface,snail_rect)
-
-    #Player
-    player_gravity += 1
-    player_rect.y += player_gravity
-    if player_rect.bottom >= 300:
-        player_rect.bottom = 300
-    screen.blit(player_surf,player_rect)
     
-    #keys = pygame.key.get_pressed()
-    #if keys[pygame.K_SPACE]:
-       # player_gravity = -10
+    if game_active:    
+        #Kolejnosc deklarowania elementow jest bardzo wazna i trzeba byc precyzyjnym
+        screen.blit(background_surface,(0,0))
+        screen.blit(sky_surface,(0,0)) # x , y
+        screen.blit(ground_surface,(0,300))
+        pygame.draw.rect(screen, 'Pink', score_rect)
+        pygame.draw.rect(screen, 'Pink', score_rect, 10)
+        screen.blit(score_surf,score_rect)
 
-    #mouse_pos = pygame.mouse.get_pos()
-    #if player_rect.collidepoint(mouse_pos):
-    #   print('collision')
+        snail_rect.x -= 6
+        if snail_rect.right <= 0: snail_rect.left = 800
+        screen.blit(snail_surface,snail_rect)
+
+        #Player
+        player_gravity += 1
+        player_rect.y += player_gravity
+        if player_rect.bottom >= 300: player_rect.bottom = 300
+        screen.blit(player_surf,player_rect)
+
+        #Collision
+        if snail_rect.colliderect(player_rect):
+            game_active = False
+    #Kontent do dokonczenia YT: 1:52:30
+    else:
+        screen.fill('Yellow')
         
+        #keys = pygame.key.get_pressed()
+        #if keys[pygame.K_SPACE]:
+        # player_gravity = -10
+
+        #mouse_pos = pygame.mouse.get_pos()
+        #if player_rect.collidepoint(mouse_pos):
+        #   print('collision')
+            
 
     pygame.display.update()
     clock.tick(60)

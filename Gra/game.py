@@ -27,12 +27,23 @@ snail_rect = snail_surface.get_rect(bottomright = (700,300))
 player_surf = pygame.Surface((50,100))
 player_surf.fill('Red')
 player_rect = player_surf.get_rect(midbottom = (80,300))
+player_gravity = 0
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+        
+        if player_rect.bottom == 300 :
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if player_rect.collidepoint(event.pos): 
+                    player_gravity = -20
+        
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    player_gravity = -20
+        
     #Kolejnosc deklarowania elementow jest bardzo wazna i trzeba byc precyzyjnym
     screen.blit(background_surface,(0,0))
     screen.blit(sky_surface,(0,0)) # x , y
@@ -41,16 +52,24 @@ while True:
     pygame.draw.rect(screen, 'Pink', score_rect, 10)
     screen.blit(score_surf,score_rect)
 
-    snail_rect.x -= 4
+    snail_rect.x -= 6
     if snail_rect.right <= 0: snail_rect.left = 800
-    screen.blit(snail_surface,snail_rect) 
+    screen.blit(snail_surface,snail_rect)
+
+    #Player
+    player_gravity += 1
+    player_rect.y += player_gravity
+    if player_rect.bottom >= 300:
+        player_rect.bottom = 300
     screen.blit(player_surf,player_rect)
+    
+    #keys = pygame.key.get_pressed()
+    #if keys[pygame.K_SPACE]:
+       # player_gravity = -10
 
-
-
-    mouse_pos = pygame.mouse.get_pos()
-    if player_rect.collidepoint(mouse_pos):
-        print('collision')
+    #mouse_pos = pygame.mouse.get_pos()
+    #if player_rect.collidepoint(mouse_pos):
+    #   print('collision')
         
 
     pygame.display.update()

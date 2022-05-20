@@ -3,12 +3,20 @@ from cmath import rect
 import pygame
 from sys import exit
 
+def display_score():
+    current_time = pygame.time.get_ticks() - start_time
+    score_surf = test_font.render(f'{current_time}', False, 'White')
+    score_rect = score_surf.get_rect(center = (500, 70))
+    screen.blit(score_surf,score_rect)
+
+
 pygame.init()
 screen = pygame.display.set_mode((800,400)) # w ,h 
 pygame.display.set_caption('Runner')
 clock = pygame.time.Clock()
 test_font = pygame.font.Font(None, 50) # type font, size
 game_active = True
+start_time = 0
 
 #Design
 background_surface = pygame.Surface((800,800))
@@ -21,8 +29,8 @@ ground_surface = pygame.Surface((800,100))
 ground_surface.fill('Green')
 
 #Text
-score_surf = test_font.render('Score:', False, 'Brown')
-score_rect = score_surf.get_rect(center = (400, 70))
+score_text_surf = test_font.render('Score:', False, 'Brown')
+score_text_rect = score_text_surf.get_rect(center = (300, 70))
 
 game_over_surf = test_font.render('Game Over',False,'Brown')
 game_over_rect = game_over_surf.get_rect(center = (400, 70))
@@ -58,6 +66,7 @@ while True:
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 game_active = True
                 snail_rect.left = 700
+                start_time = pygame.time.get_ticks()
 
     
     if game_active:  
@@ -66,9 +75,10 @@ while True:
         screen.blit(background_surface,(0,0))
         screen.blit(sky_surface,(0,0)) # x , y
         screen.blit(ground_surface,(0,300))
-        pygame.draw.rect(screen, 'Pink', score_rect)
-        pygame.draw.rect(screen, 'Pink', score_rect, 10)
-        screen.blit(score_surf,score_rect)
+        pygame.draw.rect(screen, 'Pink', score_text_rect)
+        pygame.draw.rect(screen, 'Pink', score_text_rect, 10)
+        screen.blit(score_text_surf,score_text_rect)
+        display_score()
 
         #Enemy attributes (Movement)
         snail_rect.x -= 6

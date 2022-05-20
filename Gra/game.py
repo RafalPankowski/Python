@@ -4,7 +4,7 @@ import pygame
 from sys import exit
 
 def display_score():
-    current_time = pygame.time.get_ticks() - start_time
+    current_time = int(pygame.time.get_ticks() / 1000) - start_time
     score_surf = test_font.render(f'{current_time}', False, 'White')
     score_rect = score_surf.get_rect(center = (500, 70))
     screen.blit(score_surf,score_rect)
@@ -66,7 +66,7 @@ while True:
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 game_active = True
                 snail_rect.left = 700
-                start_time = pygame.time.get_ticks()
+                start_time = int(pygame.time.get_ticks() / 1000)
 
     
     if game_active:  

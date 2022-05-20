@@ -24,6 +24,12 @@ ground_surface.fill('Green')
 score_surf = test_font.render('Score:', False, 'Brown')
 score_rect = score_surf.get_rect(center = (400, 70))
 
+game_over_surf = test_font.render('Game Over',False,'Brown')
+game_over_rect = game_over_surf.get_rect(center = (400, 70))
+
+reset_text_surf = test_font.render('Press SPACEBAR to play again',False,'Brown')
+reset_text_rect = reset_text_surf.get_rect(center = (400, 140))
+
 #Enemy
 snail_surface = pygame.image.load('grafika\\snail.png').convert_alpha()
 snail_rect = snail_surface.get_rect(bottomright = (700,300))
@@ -40,14 +46,19 @@ while True:
             pygame.quit()
             exit()
         
-        if player_rect.bottom == 300 :
+        if game_active:
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if player_rect.collidepoint(event.pos): 
+                if player_rect.collidepoint(event.pos) and player_rect.bottom >= 300: 
                     player_gravity = -20
-        
+            
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
+                if event.key == pygame.K_SPACE and player_rect.bottom >= 300:
                     player_gravity = -20
+        else:
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                game_active = True
+                snail_rect.left = 700
+
     
     if game_active:  
         #'Render'  
@@ -73,9 +84,11 @@ while True:
         #Collision
         if snail_rect.colliderect(player_rect):
             game_active = False
-    #Kontent do dokonczenia YT: 1:52:30
+
     else:
         screen.fill('Yellow')
+        screen.blit(game_over_surf,game_over_rect)
+        screen.blit(reset_text_surf,reset_text_rect)
         
     #Other solutions
         #Jump

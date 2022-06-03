@@ -14,7 +14,7 @@ def display_score():
 def obstacle_movement(obstacle_list):
     if obstacle_list:
         for obstacle_rect in obstacle_list:
-            obstacle_rect.x -= 5
+            obstacle_rect.x -= 6
 
             if obstacle_rect.bottom == 300: screen.blit(snail_surface,obstacle_rect)
 
@@ -29,6 +29,15 @@ def collisions(player,obstacles):
             if player.colliderect(obstacle_rect): return False
     return True
 
+def player_animation():
+    global player_surf, player_index
+    if player_rect.bottom < 300:
+        player_surf = player_walk0
+    else:
+        player_index += 0.2
+        if player_index >= len(player_walk):player_index = 0
+        player_surf = player_walk[int(player_index)]
+
 pygame.init()
 screen = pygame.display.set_mode((800,400)) # w ,h 
 pygame.display.set_caption('Runner')
@@ -40,7 +49,7 @@ score = 0
 
 #Design
 background_surface = pygame.Surface((800,800))
-background_surface.fill('Black')
+background_surface.fill('Violet')
 
 sky_surface = pygame.Surface((800,50))
 sky_surface.fill('Blue')
@@ -65,8 +74,20 @@ snail_rect = snail_surface.get_rect(bottomright = (600,300))
 obstacle_rect_list = []
 
 #Player
-player_surf = pygame.Surface((50,100))
-player_surf.fill('Red')
+#player_surf = pygame.Surface((50,100))
+#player_surf.fill('Red')
+player_walk0 = pygame.image.load('grafika\\Player_Move0000.png').convert_alpha()
+player_walk0 = pygame.transform.scale(player_walk0, (50,80))
+player_walk1 = pygame.image.load('grafika\\Player_Move0001.png').convert_alpha()
+player_walk1 = pygame.transform.scale(player_walk1, (50,80))
+player_walk2 = pygame.image.load('grafika\\Player_Move0002.png').convert_alpha()
+player_walk2 = pygame.transform.scale(player_walk2, (50,80))
+player_walk3 = pygame.image.load('grafika\\Player_Move0003.png').convert_alpha()
+player_walk3 = pygame.transform.scale(player_walk3, (50,80))
+player_walk = [player_walk0, player_walk1, player_walk2, player_walk3]
+player_index = 0
+
+player_surf = player_walk[player_index]
 player_rect = player_surf.get_rect(midbottom = (80,300))
 player_gravity = 0
 
@@ -118,6 +139,7 @@ while True:
         player_gravity += 1
         player_rect.y += player_gravity
         if player_rect.bottom >= 300: player_rect.bottom = 300
+        player_animation()
         screen.blit(player_surf,player_rect)
 
         #Obstacle movment

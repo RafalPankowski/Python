@@ -14,9 +14,9 @@ def display_score():
 def obstacle_movement(obstacle_list):
     if obstacle_list:
         for obstacle_rect in obstacle_list:
-            obstacle_rect.x -= 6
+            obstacle_rect.x -= 7
 
-            if obstacle_rect.bottom == 300: screen.blit(snail_surface,obstacle_rect)
+            if obstacle_rect.bottom == 300: screen.blit(hound_surf,obstacle_rect)
 
         obstacle_list = [obstacle for obstacle in obstacle_list if obstacle.x > -100]
 
@@ -68,21 +68,54 @@ reset_text_surf = test_font.render('Press SPACEBAR to play again',False,'Brown')
 reset_text_rect = reset_text_surf.get_rect(center = (400, 210))
 
 #Enemy
-snail_surface = pygame.image.load('grafika\\snail.png').convert_alpha()
-snail_rect = snail_surface.get_rect(bottomright = (600,300))
+hound_frame0 = pygame.image.load('grafika\\Hound\\Hound_Move0000.png').convert_alpha()
+hound_frame0 = pygame.transform.scale(hound_frame0, (70,40))
+hound_frame1 = pygame.image.load('grafika\\Hound\\Hound_Move0001.png').convert_alpha()
+hound_frame1 = pygame.transform.scale(hound_frame1, (70,40))
+hound_frame2 = pygame.image.load('grafika\\Hound\\Hound_Move0002.png').convert_alpha()
+hound_frame2 = pygame.transform.scale(hound_frame2, (70,40))
+hound_frame3 = pygame.image.load('grafika\\Hound\\Hound_Move0003.png').convert_alpha()
+hound_frame3 = pygame.transform.scale(hound_frame3, (70,40))
+hound_frame4 = pygame.image.load('grafika\\Hound\\Hound_Move0004.png').convert_alpha()
+hound_frame4 = pygame.transform.scale(hound_frame4, (70,40))
+hound_frame5 = pygame.image.load('grafika\\Hound\\Hound_Move0005.png').convert_alpha()
+hound_frame5 = pygame.transform.scale(hound_frame5, (70,40))
+hound_frame6 = pygame.image.load('grafika\\Hound\\Hound_Move0006.png').convert_alpha()
+hound_frame6 = pygame.transform.scale(hound_frame6, (70,40))
+hound_frame7 = pygame.image.load('grafika\\Hound\\Hound_Move0007.png').convert_alpha()
+hound_frame7 = pygame.transform.scale(hound_frame7, (70,40))
+hound_frame8 = pygame.image.load('grafika\\Hound\\Hound_Move0008.png').convert_alpha()
+hound_frame8 = pygame.transform.scale(hound_frame8, (70,40))
+hound_frame9 = pygame.image.load('grafika\\Hound\\Hound_Move0009.png').convert_alpha()
+hound_frame9 = pygame.transform.scale(hound_frame9, (70,40))
+hound_frame10 = pygame.image.load('grafika\\Hound\\Hound_Move0010.png').convert_alpha()
+hound_frame10 = pygame.transform.scale(hound_frame10, (70,40))
+hound_frame11 = pygame.image.load('grafika\\Hound\\Hound_Move0011.png').convert_alpha()
+hound_frame11 = pygame.transform.scale(hound_frame11, (70,40))
+hound_frame12 = pygame.image.load('grafika\\Hound\\Hound_Move0012.png').convert_alpha()
+hound_frame12 = pygame.transform.scale(hound_frame12, (70,40))
+hound_frame13 = pygame.image.load('grafika\\Hound\\Hound_Move0013.png').convert_alpha()
+hound_frame13 = pygame.transform.scale(hound_frame13, (70,40))
+hound_frame14 = pygame.image.load('grafika\\Hound\\Hound_Move0014.png').convert_alpha()
+hound_frame14 = pygame.transform.scale(hound_frame14, (70,40))
+hound_frame15 = pygame.image.load('grafika\\Hound\\Hound_Move0015.png').convert_alpha()
+hound_frame15 = pygame.transform.scale(hound_frame15, (70,40))
+hound_frames = [hound_frame0, hound_frame1, hound_frame2, hound_frame3, hound_frame4, hound_frame5, hound_frame6, hound_frame7, hound_frame8, hound_frame9, hound_frame10, hound_frame11, hound_frame12, hound_frame13, hound_frame14, hound_frame15]
+hound_frame_index = 0
+hound_surf = hound_frames[hound_frame_index]
 
 obstacle_rect_list = []
 
 #Player
 #player_surf = pygame.Surface((50,100))
 #player_surf.fill('Red')
-player_walk0 = pygame.image.load('grafika\\Player_Move0000.png').convert_alpha()
+player_walk0 = pygame.image.load('grafika\\Player\\Player_Move0000.png').convert_alpha()
 player_walk0 = pygame.transform.scale(player_walk0, (50,80))
-player_walk1 = pygame.image.load('grafika\\Player_Move0001.png').convert_alpha()
+player_walk1 = pygame.image.load('grafika\\Player\\Player_Move0001.png').convert_alpha()
 player_walk1 = pygame.transform.scale(player_walk1, (50,80))
-player_walk2 = pygame.image.load('grafika\\Player_Move0002.png').convert_alpha()
+player_walk2 = pygame.image.load('grafika\\Player\\Player_Move0002.png').convert_alpha()
 player_walk2 = pygame.transform.scale(player_walk2, (50,80))
-player_walk3 = pygame.image.load('grafika\\Player_Move0003.png').convert_alpha()
+player_walk3 = pygame.image.load('grafika\\Player\\Player_Move0003.png').convert_alpha()
 player_walk3 = pygame.transform.scale(player_walk3, (50,80))
 player_walk = [player_walk0, player_walk1, player_walk2, player_walk3]
 player_index = 0
@@ -95,6 +128,9 @@ player_gravity = 0
 obstacle_timer = pygame.USEREVENT + 1 
 pygame.time.set_timer(obstacle_timer,1500)
 
+hound_animation_timer = pygame.USEREVENT + 2
+pygame.time.set_timer(hound_animation_timer,20)
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -104,20 +140,38 @@ while True:
         if game_active:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if player_rect.collidepoint(event.pos) and player_rect.bottom >= 300: 
-                    player_gravity = -20
+                    player_gravity = -18
             
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE and player_rect.bottom >= 300:
-                    player_gravity = -20
+                    player_gravity = -18
         else:
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 game_active = True
-                snail_rect.left = 700
+                
                 start_time = int(pygame.time.get_ticks() / 1000)
 
-        if event.type == obstacle_timer and game_active:
-            obstacle_rect_list.append(snail_surface.get_rect(bottomright = (randint(900,1100),300)))
-
+        if game_active:
+            if event.type == obstacle_timer:
+                obstacle_rect_list.append(hound_surf.get_rect(bottomright = (randint(900,1100),300)))
+            if event.type == hound_animation_timer:
+                if hound_frame_index == 0: hound_frame_index = 1
+                elif hound_frame_index == 1: hound_frame_index = 2
+                elif hound_frame_index == 2: hound_frame_index = 3
+                elif hound_frame_index == 3: hound_frame_index = 4
+                elif hound_frame_index == 4: hound_frame_index = 5
+                elif hound_frame_index == 5: hound_frame_index = 6
+                elif hound_frame_index == 6: hound_frame_index = 7
+                elif hound_frame_index == 7: hound_frame_index = 8
+                elif hound_frame_index == 8: hound_frame_index = 9
+                elif hound_frame_index == 9: hound_frame_index = 10
+                elif hound_frame_index == 10: hound_frame_index = 11
+                elif hound_frame_index == 11: hound_frame_index = 12
+                elif hound_frame_index == 12: hound_frame_index = 13
+                elif hound_frame_index == 13: hound_frame_index = 14
+                elif hound_frame_index == 14: hound_frame_index = 15
+                else: hound_frame_index = 0
+                hound_surf = hound_frames[hound_frame_index]
     
     if game_active:  
         #'Render'  
@@ -131,9 +185,10 @@ while True:
         score = display_score()
 
         #Enemy attributes (Movement) old
-        #snail_rect.x -= 6
-        #if snail_rect.right <= 0: snail_rect.left = 800
-        #screen.blit(snail_surface,snail_rect)
+        #hound_rect.x -= 6
+        #if hound_rect.right <= 0: hound_rect.left = 800
+        #screen.blit(hound_surface,hound_rect)
+
 
         #Player attributes
         player_gravity += 1

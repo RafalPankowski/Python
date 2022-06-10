@@ -69,37 +69,37 @@ reset_text_rect = reset_text_surf.get_rect(center = (400, 210))
 
 #Enemy
 hound_frame0 = pygame.image.load('grafika\\Hound\\Hound_Move0000.png').convert_alpha()
-hound_frame0 = pygame.transform.scale(hound_frame0, (70,40))
+hound_frame0 = pygame.transform.scale(hound_frame0, (105,60))
 hound_frame1 = pygame.image.load('grafika\\Hound\\Hound_Move0001.png').convert_alpha()
-hound_frame1 = pygame.transform.scale(hound_frame1, (70,40))
+hound_frame1 = pygame.transform.scale(hound_frame1, (105,60))
 hound_frame2 = pygame.image.load('grafika\\Hound\\Hound_Move0002.png').convert_alpha()
-hound_frame2 = pygame.transform.scale(hound_frame2, (70,40))
+hound_frame2 = pygame.transform.scale(hound_frame2, (105,60))
 hound_frame3 = pygame.image.load('grafika\\Hound\\Hound_Move0003.png').convert_alpha()
-hound_frame3 = pygame.transform.scale(hound_frame3, (70,40))
+hound_frame3 = pygame.transform.scale(hound_frame3, (105,60))
 hound_frame4 = pygame.image.load('grafika\\Hound\\Hound_Move0004.png').convert_alpha()
-hound_frame4 = pygame.transform.scale(hound_frame4, (70,40))
+hound_frame4 = pygame.transform.scale(hound_frame4, (105,60))
 hound_frame5 = pygame.image.load('grafika\\Hound\\Hound_Move0005.png').convert_alpha()
-hound_frame5 = pygame.transform.scale(hound_frame5, (70,40))
+hound_frame5 = pygame.transform.scale(hound_frame5, (105,60))
 hound_frame6 = pygame.image.load('grafika\\Hound\\Hound_Move0006.png').convert_alpha()
-hound_frame6 = pygame.transform.scale(hound_frame6, (70,40))
+hound_frame6 = pygame.transform.scale(hound_frame6, (105,60))
 hound_frame7 = pygame.image.load('grafika\\Hound\\Hound_Move0007.png').convert_alpha()
-hound_frame7 = pygame.transform.scale(hound_frame7, (70,40))
+hound_frame7 = pygame.transform.scale(hound_frame7, (105,60))
 hound_frame8 = pygame.image.load('grafika\\Hound\\Hound_Move0008.png').convert_alpha()
-hound_frame8 = pygame.transform.scale(hound_frame8, (70,40))
+hound_frame8 = pygame.transform.scale(hound_frame8, (105,60))
 hound_frame9 = pygame.image.load('grafika\\Hound\\Hound_Move0009.png').convert_alpha()
-hound_frame9 = pygame.transform.scale(hound_frame9, (70,40))
+hound_frame9 = pygame.transform.scale(hound_frame9, (105,60))
 hound_frame10 = pygame.image.load('grafika\\Hound\\Hound_Move0010.png').convert_alpha()
-hound_frame10 = pygame.transform.scale(hound_frame10, (70,40))
+hound_frame10 = pygame.transform.scale(hound_frame10, (105,60))
 hound_frame11 = pygame.image.load('grafika\\Hound\\Hound_Move0011.png').convert_alpha()
-hound_frame11 = pygame.transform.scale(hound_frame11, (70,40))
+hound_frame11 = pygame.transform.scale(hound_frame11, (105,60))
 hound_frame12 = pygame.image.load('grafika\\Hound\\Hound_Move0012.png').convert_alpha()
-hound_frame12 = pygame.transform.scale(hound_frame12, (70,40))
+hound_frame12 = pygame.transform.scale(hound_frame12, (105,60))
 hound_frame13 = pygame.image.load('grafika\\Hound\\Hound_Move0013.png').convert_alpha()
-hound_frame13 = pygame.transform.scale(hound_frame13, (70,40))
+hound_frame13 = pygame.transform.scale(hound_frame13, (105,60))
 hound_frame14 = pygame.image.load('grafika\\Hound\\Hound_Move0014.png').convert_alpha()
-hound_frame14 = pygame.transform.scale(hound_frame14, (70,40))
+hound_frame14 = pygame.transform.scale(hound_frame14, (105,60))
 hound_frame15 = pygame.image.load('grafika\\Hound\\Hound_Move0015.png').convert_alpha()
-hound_frame15 = pygame.transform.scale(hound_frame15, (70,40))
+hound_frame15 = pygame.transform.scale(hound_frame15, (105,60))
 hound_frames = [hound_frame0, hound_frame1, hound_frame2, hound_frame3, hound_frame4, hound_frame5, hound_frame6, hound_frame7, hound_frame8, hound_frame9, hound_frame10, hound_frame11, hound_frame12, hound_frame13, hound_frame14, hound_frame15]
 hound_frame_index = 0
 hound_surf = hound_frames[hound_frame_index]
@@ -140,11 +140,11 @@ while True:
         if game_active:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if player_rect.collidepoint(event.pos) and player_rect.bottom >= 300: 
-                    player_gravity = -18
+                    player_gravity = -20
             
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE and player_rect.bottom >= 300:
-                    player_gravity = -18
+                    player_gravity = -20
         else:
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 game_active = True
